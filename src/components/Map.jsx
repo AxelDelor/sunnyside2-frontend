@@ -5,7 +5,7 @@ const Map = ({ bars }) => {
 
   return (
 
-      <div id="map">
+      <div>
         <MapContainer center={[50.6292, 3.0573]} zoom={13} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
