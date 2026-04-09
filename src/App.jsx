@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import Map from "./components/Map"
 import Favorite from "./components/Favorite";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import "./styles/App.css"
-import { Card } from "react-bootstrap";
 
 const App = () => {
 
