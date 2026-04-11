@@ -2,7 +2,22 @@ import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
 import { Button, Stack } from 'react-bootstrap'
 import "../styles/Map.css"
 
-const Map = ({ bars }) => {
+const Map = ({ bars, token }) => {
+
+  const handleFavorite = (id) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ bar: { id } })
+    };
+    fetch('http://localhost:9000/favorite', requestOptions)
+      .then(response => response.text())
+      .then(data => (data));
+  }
+
 
   return (
 
@@ -19,7 +34,9 @@ const Map = ({ bars }) => {
                 <span>
                   {name}
                 </span>
-                <Button>
+                <Button
+                  value={id}
+                  onClick={() => handleFavorite(id)}>
                   Ajouter
                 </Button>
               </Stack>

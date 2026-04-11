@@ -1,5 +1,25 @@
+import { useState, useEffect } from "react";
 
-const Favorite = ({ bars }) => {
+const Favorite = ({ token }) => {
+
+  const [favorites, setFavorites] = useState([])
+
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:9000/favorites", requestOptions)
+      .then(res => res.json())
+      .then(data => setFavorites(data));
+  }, [token]);
+
+
+
 
 
   return (
@@ -7,10 +27,10 @@ const Favorite = ({ bars }) => {
       <span className="card-header fw-bold">Liste des bars</span>
       <ul className="list-group list-group-flush">
         {
-          bars.map(({ id, name }) =>
+          favorites.map(({ id, bar }) =>
             <div key={id}>
               <li className="list-group-item d-flex justify-content-between align-items-center">
-                {name}
+                {bar.name}
               </li>
             </div>
 
