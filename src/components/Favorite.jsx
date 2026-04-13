@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const Favorite = ({ token }) => {
+const Favorite = ({ token, refreshTrigger }) => {
 
   const [favorites, setFavorites] = useState([])
 
@@ -16,9 +16,7 @@ const Favorite = ({ token }) => {
     fetch("http://localhost:9000/favorites", requestOptions)
       .then(res => res.json())
       .then(data => setFavorites(data));
-  }, [token]);
-
-
+  }, [token, refreshTrigger]);
 
 
 

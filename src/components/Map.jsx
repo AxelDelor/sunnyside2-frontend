@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
 import { Button, Stack } from 'react-bootstrap'
 import "../styles/Map.css"
 
-const Map = ({ bars, token }) => {
+const Map = ({ bars, token, setRefreshTrigger }) => {
 
   const handleFavorite = (id) => {
     const requestOptions = {
@@ -15,7 +15,8 @@ const Map = ({ bars, token }) => {
     };
     fetch('http://localhost:9000/favorite', requestOptions)
       .then(response => response.text())
-      .then(data => (data));
+      .then(setRefreshTrigger(prev => prev +1))
+
   }
 
 

@@ -8,7 +8,8 @@ import "./styles/App.css"
 const App = () => {
 
   const [bars, setBars] = useState([])
-  const [token, setToken] = useState(null)
+  const [token, setToken] = useState(localStorage.getItem("token") !== "null" ? localStorage.getItem("token") : null)
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
 
 
   useEffect(() => {
@@ -21,21 +22,23 @@ const App = () => {
   console.log(token)
 
   return (
-    <Container>
-      <NavBar setToken={setToken}/>
-      <Row className="g-2 page-content p-3">
-        <Col sm={12} lg={{ span: 8, order: 2 }}>
-          <Card>
-            <Map className='map-card' bars={bars} token={token} />
-          </Card>
-        </Col>
-        <Col sm={12} lg={{ span: 4, order: 1 }}>
-          <Card>
-            <Favorite className='favorites-card' token={token} />
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <NavBar setToken={setToken} token={token} />
+      <Container>
+        <Row className="g-2 page-content p-3">
+          <Col sm={12} lg={{ span: 8, order: 2 }}>
+            <Card>
+              <Map className='map-card' bars={bars} token={token} setRefreshTrigger={setRefreshTrigger} />
+            </Card>
+          </Col>
+          <Col sm={12} lg={{ span: 4, order: 1 }}>
+            <Card>
+              <Favorite className='favorites-card' token={token} refreshTrigger={refreshTrigger} />
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </>
   )
 }
 
