@@ -1,6 +1,7 @@
 import { Container, Navbar, Form, InputGroup, Row, Col, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import "../styles/Navbar.css"
+import sunny from "../assets/sunny.png"
 
 
 const NavBar = ({ setToken, token }) => {
@@ -42,20 +43,20 @@ const NavBar = ({ setToken, token }) => {
 
 
   return (
-    <Navbar className="bg-body-tertiary justify-content-between">
+    <Navbar>
       <Container>
-        <Navbar.Brand className="title" href="#home">SunnySide</Navbar.Brand>
-
-        {token && token !== "null" ? (
-
-          <>
-            <span>Connecté : {JSON.parse(atob(token.split('.')[1])).sub}</span>
-            <Button onClick={handleLogout}>Déconnexion</Button>
-          </>
-        ) : (
-          <Form inline>
-            <Row>
-              <Col>
+        <div className="d-flex flex-row align-items-center justify-content-between w-100">
+          <div className='navbar-logo-title'>
+            <img className='logo' src={sunny} alt="" />
+            <span className="title" href="#home">SunnySide</span>
+          </div>
+          {token && token !== "null" ? (
+            <div className="d-flex align-items-center justify-content-center flex-row gap-2">
+              <span className="text-white">{JSON.parse(atob(token.split('.')[1])).sub}</span>
+              <Button onClick={handleLogout} variant='danger'>Déconnexion</Button>
+            </div>
+          ) : (
+            <div className="d-flex flex-row align-items-center justify-content-between gap-2">
                 <InputGroup>
                   <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
                   <Form.Control
@@ -66,8 +67,6 @@ const NavBar = ({ setToken, token }) => {
                     onChange={handleEmail}
                   />
                 </InputGroup>
-              </Col>
-              <Col>
                 <InputGroup>
                   <InputGroup.Text id="basic-addon1">Password</InputGroup.Text>
                   <Form.Control
@@ -78,13 +77,12 @@ const NavBar = ({ setToken, token }) => {
                     onChange={handlePassword}
                   />
                 </InputGroup>
-              </Col>
-              <Col>
-                <Button onClick={handleLogin}>Connexion</Button>
-              </Col>
-            </Row>
-          </Form>
-        )}
+              <Button variant='success' onClick={handleLogin}>Connexion</Button>
+              <Button variant='warning'>Création</Button>
+            </div>
+          )
+          }
+        </div>
       </Container>
     </Navbar>
   )

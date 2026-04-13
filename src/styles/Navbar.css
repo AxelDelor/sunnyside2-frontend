@@ -1,3 +1,20 @@
 .title {
   font-family: "Passion One";
+  font-size: 40px;
+  color: white;
+}
+
+.logo {
+  width: 40px;
+}
+
+.navbar-logo-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+  background: #3498f0;
 }
