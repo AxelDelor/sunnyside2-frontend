@@ -1,46 +1,23 @@
-import { useState, useEffect } from "react";
-import { Card, Container, Row, Col } from "react-bootstrap";
-import Map from "./components/Map"
-import Favorite from "./components/Favorite";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/Navbar";
+import Register from "./Pages/Register";
+import Home from "./Pages/Home";
 import "./styles/App.css"
 
 const App = () => {
 
-  const [bars, setBars] = useState([])
   const [token, setToken] = useState(localStorage.getItem("token") !== "null" ? localStorage.getItem("token") : null)
-  const [refreshTrigger, setRefreshTrigger] = useState(0)
-
-
-  useEffect(() => {
-    fetch("http://localhost:9000/bars")
-      .then(res => res.json())
-      .then(data => setBars(data));
-  }, []);
-
-  console.log(bars)
-  console.log(token)
 
   return (
     <>
       <NavBar setToken={setToken} token={token} />
-      <Container>
-        <Row className="g-2 page-content p-3">
-          <Col sm={12} lg={{ span: 8, order: 2 }}>
-            <Card>
-              <Map className='map-card' bars={bars} token={token} setRefreshTrigger={setRefreshTrigger} />
-            </Card>
-          </Col>
-          <Col sm={12} lg={{ span: 4, order: 1 }}>
-            <Card>
-              <Favorite className='favorites-card' token={token} refreshTrigger={refreshTrigger} />
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      <Routes>
+        <Route path="/" element={<Home token={token} />}/>
+        <Route path="/register" element={<Register setToken={setToken} />}/>
+      </Routes>
     </>
   )
 }
-
 
 export default App

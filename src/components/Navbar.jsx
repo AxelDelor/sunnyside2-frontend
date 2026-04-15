@@ -1,5 +1,6 @@
-import { Container, Navbar, Form, InputGroup, Row, Col, Button } from 'react-bootstrap';
+import { Container, Navbar, Form, InputGroup, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import "../styles/Navbar.css"
 import sunny from "../assets/sunny.png"
 
@@ -46,10 +47,12 @@ const NavBar = ({ setToken, token }) => {
     <Navbar>
       <Container>
         <div className="d-flex flex-row align-items-center justify-content-between w-100">
+        <Link to="/" className="text-decoration-none">
           <div className='navbar-logo-title'>
             <img className='logo' src={sunny} alt="" />
             <span className="title" href="#home">SunnySide</span>
           </div>
+          </Link>
           {token && token !== "null" ? (
             <div className="d-flex align-items-center justify-content-center flex-row gap-2">
               <span className="text-white">{JSON.parse(atob(token.split('.')[1])).sub}</span>
@@ -78,7 +81,9 @@ const NavBar = ({ setToken, token }) => {
                   />
                 </InputGroup>
               <Button variant='success' onClick={handleLogin}>Connexion</Button>
+              <Link to="register">
               <Button variant='warning'>Création</Button>
+              </Link>
             </div>
           )
           }
