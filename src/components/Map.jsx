@@ -15,7 +15,7 @@ const Map = ({ bars, token, setRefreshTrigger }) => {
     };
     fetch('http://localhost:9000/favorite', requestOptions)
       .then(response => response.text())
-      .then(setRefreshTrigger(prev => prev +1))
+      .then(setRefreshTrigger(prev => prev + 1))
 
   }
 
@@ -35,11 +35,13 @@ const Map = ({ bars, token, setRefreshTrigger }) => {
                 <span>
                   {name}
                 </span>
-                <Button
-                  value={id}
-                  onClick={() => handleFavorite(id)}>
-                  Ajouter
-                </Button>
+                {token && token !== "null" ? (
+                  <Button
+                    value={id}
+                    onClick={() => handleFavorite(id)}>
+                    Ajouter
+                  </Button>
+                ) : null}
               </Stack>
             </Popup>
           </Marker>
