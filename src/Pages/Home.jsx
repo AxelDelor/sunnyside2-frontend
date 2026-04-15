@@ -26,7 +26,7 @@ const Home = ({ token }) => {
           </Col>
           <Col sm={12} lg={{ span: 4, order: 1 }}>
             <Card>
-              <Favorite className='favorites-card' token={token} refreshTrigger={refreshTrigger} />
+              <Favorite className='favorites-card' token={token} setRefreshTrigger={setRefreshTrigger} refreshTrigger={refreshTrigger} />
             </Card>
           </Col>
         </Row>

@@ -15,7 +15,7 @@ const Map = ({ bars, token, setRefreshTrigger }) => {
     };
     fetch('http://localhost:9000/favorite', requestOptions)
       .then(response => response.text())
-      .then(setRefreshTrigger(prev => prev + 1))
+      .then(() => setRefreshTrigger(prev => prev + 1))
 
   }
 

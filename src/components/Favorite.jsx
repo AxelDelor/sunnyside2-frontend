@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 
-const Favorite = ({ token, refreshTrigger }) => {
+const Favorite = ({ token, refreshTrigger, setRefreshTrigger }) => {
 
   const [favorites, setFavorites] = useState([])
 
@@ -17,7 +18,22 @@ const Favorite = ({ token, refreshTrigger }) => {
       .then(data => setFavorites(data));
   }, [token, refreshTrigger]);
 
+  const handleDelete = (id) => {
 
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+    };
+    fetch(`http://localhost:9000/favorite/${id}`, requestOptions)
+      .then(response => response.text())
+      .then(() => setRefreshTrigger(prev => prev + 1))
+
+      console.log(token)
+      console.log(id)
+  }
 
   return (
     <>
@@ -25,9 +41,10 @@ const Favorite = ({ token, refreshTrigger }) => {
       <ul className="list-group list-group-flush">
         {token && token !== "null" ? (
           favorites.map(({ id, bar }) =>
-            <div key={id}>
+            <div key={id} >
               <li className="list-group-item d-flex justify-content-between align-items-center">
-                {bar.name}
+                <span>{bar.name}</span>
+                <Button variant="danger" onClick={() => handleDelete(id)}>Supprimer</Button>
               </li>
             </div>
 
