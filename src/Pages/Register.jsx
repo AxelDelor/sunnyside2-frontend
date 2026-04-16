@@ -37,7 +37,7 @@ const Register = () => {
 
   return (
     <Container>
-      <Form>
+      <Form className="mt-2">
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Nom</Form.Label>
           <Form.Control type="name" placeholder="CamilleF" value={name} onChange={handleName} />

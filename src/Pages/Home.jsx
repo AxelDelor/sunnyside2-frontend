@@ -17,7 +17,6 @@ const Home = ({ token }) => {
 
   return (
     <>
-      <Container>
         <Row className="g-2 page-content p-3">
           <Col sm={12} lg={{ span: 8, order: 2 }}>
             <Card>
@@ -30,7 +29,6 @@ const Home = ({ token }) => {
             </Card>
           </Col>
         </Row>
-      </Container>
     </>
   )
 }
