@@ -10,4 +10,19 @@
 
 .navbar {
   background: #3498f0;
+  height: 80px;
+}
+
+.profile-letter {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: rgb(255, 145, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
 }

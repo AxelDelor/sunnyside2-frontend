@@ -1,0 +1,8 @@
+.page-content {
+  height: calc(100vh - 80px);
+}
+
+.page-content .col,
+.page-content .card {
+  height: 100%;
+}

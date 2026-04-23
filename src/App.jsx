@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/Navbar";
 import Register from "./Pages/Register";
 import Home from "./Pages/Home";
-import "./styles/App.css"
 
 const App = () => {
 

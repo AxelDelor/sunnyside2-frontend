@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import sunny from "../assets/sunny.png";
+import hero from "../assets/hero.png";
 
 const NavBar = ({ setToken, token }) => {
   const [email, setEmail] = useState("");
@@ -46,7 +47,6 @@ const NavBar = ({ setToken, token }) => {
     }
   }, [token]);
 
-  
   return (
     <Navbar expand="lg" className="p-3">
       <Link to="/" className="text-decoration-none">
@@ -61,8 +61,10 @@ const NavBar = ({ setToken, token }) => {
       <Navbar.Collapse id="navbar-content">
         {token && token !== "null" ? (
           <Stack direction="horizontal" className="ms-auto" gap={2}>
-            <span className="text-white">
-              {JSON.parse(atob(token.split(".")[1])).sub}
+            <span className="profile-letter">
+              {JSON.parse(atob(token.split(".")[1]))
+                .sub.charAt(0)
+                .toUpperCase()}
             </span>
             <Button onClick={handleLogout} variant="danger">
               Déconnexion

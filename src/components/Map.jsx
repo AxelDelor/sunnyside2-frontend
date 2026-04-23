@@ -22,7 +22,7 @@ const Map = ({ bars, token, setRefreshTrigger }) => {
 
   return (
 
-    <div>
+    <>
       <MapContainer center={[50.6292, 3.0573]} zoom={13} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -47,7 +47,7 @@ const Map = ({ bars, token, setRefreshTrigger }) => {
           </Marker>
         )}
       </MapContainer>
-    </div>
+    </>
   )
 
 }
