@@ -37,12 +37,18 @@ const Favorite = ({ token, refreshTrigger, setRefreshTrigger }) => {
       <ul className="list-group list-group-flush favorites-ul">
         {token && token !== "null" ? (
           favorites.map(({ id, bar }) => (
-              <li key={id} className="list-group-item d-flex justify-content-between align-items-center">
-                <span>{bar.name}</span>
+            <li
+              key={id}
+              className="list-group-item d-flex justify-content-between align-items-center"
+            >
+              <span>{bar.name}</span>
+              <div className="d-flex flex-row gap-2">
+                <span>{bar.sunny ? "☀️" : "☁️"}</span>
                 <Button variant="danger" onClick={() => handleDelete(id)}>
                   X
                 </Button>
-              </li>
+              </div>
+            </li>
           ))
         ) : (
           <li className="list-group-item d-flex justify-content-between align-items-center">

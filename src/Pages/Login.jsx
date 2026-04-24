@@ -56,7 +56,11 @@ const Login = ({ token, setToken }) => {
           />
         </Form.Group>
       </Form>
-      <Button as={Link} to={"/"} variant="success" onClick={handleLogin}>
+      <Button
+      // as={Link}
+      // to={"/"}
+      variant="success"
+      onClick={handleLogin}>
         Connexion
       </Button>
     </Container>

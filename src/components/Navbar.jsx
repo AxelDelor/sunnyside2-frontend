@@ -33,9 +33,6 @@ const NavBar = ({ token, setToken }) => {
                 }
             </span>
             <img className="logout-logo" src={poweroff} alt="Déconnexion" onClick={handleLogout} />
-            {/* <Button onClick={handleLogout} variant="warning" >
-              Déconnexion
-            </Button> */}
           </Stack>
         ) : (
           <Stack direction="horizontal" className="ms-auto" gap={2}>
