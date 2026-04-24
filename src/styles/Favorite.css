@@ -1,4 +1,11 @@
 .favorites-list {
-  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  overflow: hidden;
+}
+
+.favorites-ul {
+  overflow-y: auto;
+  flex: 1;
 }

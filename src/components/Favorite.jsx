@@ -32,15 +32,15 @@ const Favorite = ({ token, refreshTrigger, setRefreshTrigger }) => {
   };
 
   return (
-    <>
+    <div className="favorites-list">
       <span className="card-header fw-bold">Liste des bars</span>
-      <ul className="list-group list-group-flush favorites-list">
+      <ul className="list-group list-group-flush favorites-ul">
         {token && token !== "null" ? (
           favorites.map(({ id, bar }) => (
               <li key={id} className="list-group-item d-flex justify-content-between align-items-center">
                 <span>{bar.name}</span>
                 <Button variant="danger" onClick={() => handleDelete(id)}>
-                  Supprimer
+                  X
                 </Button>
               </li>
           ))
@@ -51,7 +51,7 @@ const Favorite = ({ token, refreshTrigger, setRefreshTrigger }) => {
           </li>
         )}
       </ul>
-    </>
+    </div>
   );
 };
 

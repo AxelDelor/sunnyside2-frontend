@@ -1,6 +1,5 @@
 import {
   Container,
-  Navbar,
   Form,
   Button,
   Stack,
@@ -16,6 +15,7 @@ import hero from "../assets/hero.png";
 const NavBar = ({ setToken, token }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleLogin = () => {
     const requestOptions = {
@@ -48,7 +48,7 @@ const NavBar = ({ setToken, token }) => {
   }, [token]);
 
   return (
-    <Navbar expand="lg" className="p-3">
+    <div className=" navbar p-3">
       <Link to="/" className="text-decoration-none">
         <Stack direction="horizontal" gap={2}>
           <img className="logo" src={sunny} alt="logo soleil" />
@@ -57,8 +57,10 @@ const NavBar = ({ setToken, token }) => {
           </span>
         </Stack>
       </Link>
-      <Navbar.Toggle aria-controls="navbar-content" />
-      <Navbar.Collapse id="navbar-content">
+      <Button onClick={() => isOpen(true)}>
+        Open
+      </Button>
+      <div>
         {token && token !== "null" ? (
           <Stack direction="horizontal" className="ms-auto" gap={2}>
             <span className="profile-letter">
@@ -102,8 +104,8 @@ const NavBar = ({ setToken, token }) => {
             </Row>
           </Form>
         )}
-      </Navbar.Collapse>
-    </Navbar>
+      </div>
+    </div>
   );
 };
 

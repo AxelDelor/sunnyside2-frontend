@@ -1,4 +1,4 @@
-import { Card, Container, Row, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import Map from "../components/Map";
 import Favorite from "../components/Favorite";
@@ -16,26 +16,22 @@ const Home = ({ token }) => {
 
   return (
     <>
-      <Row className="g-2 page-content p-3">
-        <Col sm={12} lg={{ span: 8, order: 2 }}>
-          <Card className="map-card">
-            <Map
-              bars={bars}
-              token={token}
-              setRefreshTrigger={setRefreshTrigger}
-            />
-          </Card>
-        </Col>
-        <Col sm={12} lg={{ span: 4, order: 1 }}>
-          <Card className="favorites-card">
-            <Favorite
-              token={token}
-              setRefreshTrigger={setRefreshTrigger}
-              refreshTrigger={refreshTrigger}
-            />
-          </Card>
-        </Col>
-      </Row>
+      <div className="page-content p-3">
+        <Card className="map-card">
+          <Map
+            bars={bars}
+            token={token}
+            setRefreshTrigger={setRefreshTrigger}
+          />
+        </Card>
+        <Card className="favorites-card">
+          <Favorite
+            token={token}
+            setRefreshTrigger={setRefreshTrigger}
+            refreshTrigger={refreshTrigger}
+          />
+        </Card>
+      </div>
     </>
   );
 };

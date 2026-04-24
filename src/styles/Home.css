@@ -1,8 +1,33 @@
 .page-content {
-  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.page-content .col,
-.page-content .card {
-  height: 100%;
+.map-card {
+  height: 400px !important;
+}
+
+.favorites-card {
+  height: 400px !important;
+  overflow: hidden;
+}
+
+@media (min-width: 992px) {
+  .page-content {
+    flex-direction: row;
+    height: calc(100vh - 80px);
+  }
+
+  .map-card {
+    flex: 2;
+    height: 100% !important;
+    order: 2;
+  }
+
+  .favorites-card {
+    flex: 1;
+    order: 1;
+    height: 100% !important;
+  }
 }
