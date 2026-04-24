@@ -36,6 +36,7 @@ const Map = ({ bars, token, setRefreshTrigger }) => {
                   {name}
                 </span>
                 {token && token !== "null" ? (
+                  
                   <Button
                     value={id}
                     onClick={() => handleFavorite(id)}>

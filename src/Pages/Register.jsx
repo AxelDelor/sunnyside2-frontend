@@ -7,7 +7,7 @@ const Register = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
 
   const handleName = (e) => {
     setName(e.target.value)
