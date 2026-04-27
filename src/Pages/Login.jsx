@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Form, Container, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const Login = ({ token, setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -25,6 +27,7 @@ const Login = ({ token, setToken }) => {
       .then((data) => {
         setToken(data);
         console.log(data);
+        navigate("/")
       });
   };
 

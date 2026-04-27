@@ -1,57 +1,72 @@
-import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
-import { Button, Stack } from 'react-bootstrap'
-import "../styles/Map.css"
+import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
+import { Button, Stack } from "react-bootstrap";
+import { useMap } from "react-leaflet";
+import { useEffect } from "react";
+import "../styles/Map.css";
 
-const Map = ({ bars, token, setRefreshTrigger }) => {
+const FlyToBar = ({ selectedBar}) => {
+  const map = useMap();
 
+  useEffect(() => {
+    console.log(selectedBar)
+    if (selectedBar) {
+      map.flyTo([selectedBar.latitude, selectedBar.longitude], 17);
+    }
+  }, [selectedBar]);
+
+  return null;
+};
+
+const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
   const handleFavorite = (id) => {
     const requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
-      body: JSON.stringify({ bar: { id } })
+      body: JSON.stringify({ bar: { id } }),
     };
-    fetch('http://localhost:9000/favorite', requestOptions)
-      .then(response => response.text())
-      .then(() => setRefreshTrigger(prev => prev + 1))
-
-  }
-
+    fetch("http://localhost:9000/favorite", requestOptions)
+      .then((response) => response.text())
+      .then(() => setRefreshTrigger((prev) => prev + 1));
+  };
 
   return (
-
     <>
-      <MapContainer center={[50.6292, 3.0573]} zoom={13} scrollWheelZoom={false}>
+      <MapContainer
+        center={[50.6292, 3.0573]}
+        zoom={13}
+        scrollWheelZoom={false}
+      >
+        <FlyToBar selectedBar={selectedBar} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {bars.map(({ id, name, latitude, longitude }) =>
+        {bars.map(({ id, name, latitude, longitude }) => {
+          const isFavorite = favorites.find(fav => fav.bar.id === id)
+          return (
           <Marker key={id} position={[latitude, longitude]}>
             <Popup>
-              <Stack direction="vertical" className='text-center' gap={2}>
-                <span>
-                  {name}
-                </span>
+              <Stack direction="vertical" className="text-center" gap={2}>
+                <span>{name}</span>
                 {token && token !== "null" ? (
-                  
                   <Button
-                    value={id}
-                    onClick={() => handleFavorite(id)}>
-                    Ajouter
+                  value={id} onClick={() => handleFavorite(id)}
+                  disabled={!!isFavorite}
+                  variant={isFavorite ? "warning" : "primary"}>
+                    { isFavorite ? "Déjà ajouté" : "Ajouter" }
                   </Button>
                 ) : null}
               </Stack>
             </Popup>
           </Marker>
-        )}
+          )
+        })}
       </MapContainer>
     </>
-  )
+  );
+};
 
-}
-
-
-export default Map
+export default Map;

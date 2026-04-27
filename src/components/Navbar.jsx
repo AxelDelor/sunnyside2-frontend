@@ -1,9 +1,7 @@
-import { Container, Form, Button, Stack } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { Button, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import sunny from "../assets/sunny.png";
-import hero from "../assets/hero.png";
 import poweroff from "../assets/right-from-bracket-solid-full.svg";
 
 const NavBar = ({ token, setToken }) => {
@@ -11,6 +9,10 @@ const NavBar = ({ token, setToken }) => {
     setToken(null);
     localStorage.removeItem("token");
   };
+
+  const userName = token && token !== "null"
+  ? JSON.parse(atob(token.split(".")[1])).sub
+  : null
 
   return (
     <div className=" navbar p-3">
@@ -26,13 +28,10 @@ const NavBar = ({ token, setToken }) => {
         {token && token !== "null" ? (
           <Stack direction="horizontal" className="ms-auto" gap={2}>
             <span className="profile-letter">
-              {JSON.parse(atob(token.split(".")[1]))
-                .sub
-                // .charAt(0)
-                // .toUpperCase()
+              {userName.charAt(0).toUpperCase() + userName.slice(1)
                 }
             </span>
-            <img className="logout-logo" src={poweroff} alt="Déconnexion" onClick={handleLogout} />
+            <img style={{cursor: "pointer"}} className="logout-logo" src={poweroff} alt="Déconnexion" onClick={handleLogout} />
           </Stack>
         ) : (
           <Stack direction="horizontal" className="ms-auto" gap={2}>
