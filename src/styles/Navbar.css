@@ -14,15 +14,32 @@
 }
 
 .profile-letter {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: white;
   padding: 8px;
-  border-radius: 50%;
+  /* border-radius: 50%;
   background-color: rgb(255, 145, 0);
   display: flex;
   align-items: center;
   justify-content: center;
   height: 40px;
+  width: 40px; */
+}
+
+.logout-logo {
   width: 40px;
+  background-color: orange;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+@media (max-width: 992px) {
+  .logo {
+    width: 30px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
 }

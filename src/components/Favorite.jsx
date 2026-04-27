@@ -2,21 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "../styles/Favorite.css";
 
-const Favorite = ({ token, refreshTrigger, setRefreshTrigger }) => {
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    };
-    fetch("http://localhost:9000/favorites", requestOptions)
-      .then((res) => res.json())
-      .then((data) => setFavorites(data));
-  }, [token, refreshTrigger]);
+const Favorite = ({ token, refreshTrigger, setRefreshTrigger, setSelectedBar, favorites, setFavorites }) => {
 
   const handleDelete = (id) => {
     const requestOptions = {
@@ -31,18 +17,31 @@ const Favorite = ({ token, refreshTrigger, setRefreshTrigger }) => {
       .then(() => setRefreshTrigger((prev) => prev + 1));
   };
 
+  const handleFlyToBar = (bar) => {
+    setSelectedBar(bar)
+  }
+
   return (
     <div className="favorites-list">
       <span className="card-header fw-bold">Liste des bars</span>
       <ul className="list-group list-group-flush favorites-ul">
         {token && token !== "null" ? (
           favorites.map(({ id, bar }) => (
-              <li key={id} className="list-group-item d-flex justify-content-between align-items-center">
-                <span>{bar.name}</span>
+            <li
+              key={id}
+              className="list-group-item d-flex justify-content-between align-items-center"
+            >
+              <span
+              onClick={() => handleFlyToBar(bar)}
+              style={{cursor: "pointer"}}
+              >{bar.name}</span>
+              <div className="d-flex flex-row gap-2">
+                <span>{bar.sunny ? "☀️" : "☁️"}</span>
                 <Button variant="danger" onClick={() => handleDelete(id)}>
                   X
                 </Button>
-              </li>
+              </div>
+            </li>
           ))
         ) : (
           <li className="list-group-item d-flex justify-content-between align-items-center">
