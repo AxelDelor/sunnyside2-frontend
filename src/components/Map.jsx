@@ -1,16 +1,17 @@
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import { Button, Stack } from "react-bootstrap";
 import { useMap } from "react-leaflet";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "../styles/Map.css";
 
-const FlyToBar = ({ selectedBar}) => {
+const FlyToBar = ({ selectedBar, markerRefs}) => {
   const map = useMap();
 
   useEffect(() => {
     console.log(selectedBar)
     if (selectedBar) {
       map.flyTo([selectedBar.latitude, selectedBar.longitude], 17);
+      markerRefs.current[selectedBar.id]?.openPopup()
     }
   }, [selectedBar]);
 
@@ -32,6 +33,8 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
       .then(() => setRefreshTrigger((prev) => prev + 1));
   };
 
+  const markerRefs = useRef({})
+
   return (
     <>
       <MapContainer
@@ -39,7 +42,7 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
         zoom={13}
         scrollWheelZoom={false}
       >
-        <FlyToBar selectedBar={selectedBar} />
+        <FlyToBar selectedBar={selectedBar} markerRefs={markerRefs} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -47,7 +50,7 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
         {bars.map(({ id, name, latitude, longitude }) => {
           const isFavorite = favorites.find(fav => fav.bar.id === id)
           return (
-          <Marker key={id} position={[latitude, longitude]}>
+          <Marker key={id} position={[latitude, longitude]} ref={el => markerRefs.current[id] = el}>
             <Popup>
               <Stack direction="vertical" className="text-center" gap={2}>
                 <span>{name}</span>
