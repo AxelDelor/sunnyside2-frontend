@@ -30,8 +30,11 @@ const FlyToBar = ({ selectedBar, markerRefs}) => {
   return null;
 };
 
-const ZoomWatcher = ({onZoomChange}) => {
+const MapWatcher = ({onZoomChange, onBoundsChange}) => {
   const map = useMapEvents({
+    moveend: () => {
+      onBoundsChange(map.getBounds())
+    },
     zoomend: () => {
       onZoomChange(map.getZoom())
     }
@@ -41,6 +44,7 @@ const ZoomWatcher = ({onZoomChange}) => {
 
 const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
   const [currentZoom, setCurrentZoom] = useState(13)
+  const [bounds, setBounds] = useState(null)
 
   const handleFavorite = (id) => {
     const requestOptions = {
@@ -58,6 +62,12 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
 
   const markerRefs = useRef({})
 
+  const visibleBars = bounds
+        ? bars.filter( bar =>
+          bounds.contains([bar.latitude, bar.longitude]) ||
+          bar.id === selectedBar.id
+        ) : bars
+
   return (
     <>
       <MapContainer
@@ -65,15 +75,15 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
         zoom={13}
         scrollWheelZoom={false}
       >
-        <ZoomWatcher onZoomChange={setCurrentZoom}/>
+        <MapWatcher onZoomChange={setCurrentZoom} onBoundsChange={setBounds}/>
         <FlyToBar selectedBar={selectedBar} markerRefs={markerRefs} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {bars.map(({ id, name, latitude, longitude }) => {
+        {visibleBars.map(({ id, name, latitude, longitude }) => {
           const isFavorite = favorites.find(fav => fav.bar.id === id)
-          return currentZoom >= 17 ? (
+          return currentZoom >= 15 ? (
           <Marker key={id} position={[latitude, longitude]} ref={el => markerRefs.current[id] = el}>
             <Popup>
               <Stack direction="vertical" className="text-center" gap={2}>
