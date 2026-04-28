@@ -1,7 +1,7 @@
-import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Popup, Marker, useMapEvent, useMapEvents } from "react-leaflet";
 import { Button, Stack } from "react-bootstrap";
 import { useMap } from "react-leaflet";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/Map.css";
 
 import L from 'leaflet'
@@ -30,7 +30,18 @@ const FlyToBar = ({ selectedBar, markerRefs}) => {
   return null;
 };
 
+const ZoomWatcher = ({onZoomChange}) => {
+  const map = useMapEvents({
+    zoomend: () => {
+      onZoomChange(map.getZoom())
+    }
+  })
+  return null
+}
+
 const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
+  const [currentZoom, setCurrentZoom] = useState(13)
+
   const handleFavorite = (id) => {
     const requestOptions = {
       method: "POST",
@@ -54,6 +65,7 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
         zoom={13}
         scrollWheelZoom={false}
       >
+        <ZoomWatcher onZoomChange={setCurrentZoom}/>
         <FlyToBar selectedBar={selectedBar} markerRefs={markerRefs} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -61,7 +73,7 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
         />
         {bars.map(({ id, name, latitude, longitude }) => {
           const isFavorite = favorites.find(fav => fav.bar.id === id)
-          return (
+          return currentZoom >= 14 ? (
           <Marker key={id} position={[latitude, longitude]} ref={el => markerRefs.current[id] = el}>
             <Popup>
               <Stack direction="vertical" className="text-center" gap={2}>
@@ -77,7 +89,7 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
               </Stack>
             </Popup>
           </Marker>
-          )
+          ) : null
         })}
       </MapContainer>
     </>
