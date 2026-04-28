@@ -65,7 +65,7 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
   const visibleBars = bounds
         ? bars.filter( bar =>
           bounds.contains([bar.latitude, bar.longitude]) ||
-          bar.id === selectedBar.id
+          bar.id === selectedBar?.id
         ) : bars
 
   return (
