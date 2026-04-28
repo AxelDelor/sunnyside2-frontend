@@ -33,7 +33,7 @@ const FlyToBar = ({ selectedBar, markerRefs }) => {
 
       setTimeout(() => {
         markerRefs.current[selectedBar.id]?.openPopup();
-      }, 100);
+      }, 300);
     }
   }, [selectedBar]);
 
