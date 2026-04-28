@@ -28,7 +28,7 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
       },
       body: JSON.stringify({ bar: { id } }),
     };
-    fetch("http://localhost:9000/favorite", requestOptions)
+    fetch(`${import.meta.env.VITE_API_URL}/favorite`, requestOptions)
       .then((response) => response.text())
       .then(() => setRefreshTrigger((prev) => prev + 1));
   };

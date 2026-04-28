@@ -22,7 +22,7 @@ const Login = ({ token, setToken }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     };
-    fetch("http://localhost:9000/api/auth/login", requestOptions)
+    fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, requestOptions)
       .then((response) => response.text())
       .then((data) => {
         setToken(data);

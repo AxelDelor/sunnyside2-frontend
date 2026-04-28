@@ -11,7 +11,7 @@ const Home = ({ token }) => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:9000/bars")
+    fetch(`${import.meta.env.VITE_API_URL}/bars`)
       .then((res) => res.json())
       .then((data) => setBars(data));
   }, []);
@@ -24,7 +24,7 @@ const Home = ({ token }) => {
         Authorization: "Bearer " + token,
       },
     };
-    fetch("http://localhost:9000/favorites", requestOptions)
+    fetch(`${import.meta.env.VITE_API_URL}/favorites`, requestOptions)
       .then((res) => res.json())
       .then((data) => setFavorites(data));
   }, [token, refreshTrigger]);

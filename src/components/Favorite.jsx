@@ -12,7 +12,7 @@ const Favorite = ({ token, refreshTrigger, setRefreshTrigger, setSelectedBar, fa
         Authorization: "Bearer " + token,
       },
     };
-    fetch(`http://localhost:9000/favorite/${id}`, requestOptions)
+    fetch(`${import.meta.env.VITE_API_URL}/favorite/${id}`, requestOptions)
       .then((response) => response.text())
       .then(() => setRefreshTrigger((prev) => prev + 1));
   };
