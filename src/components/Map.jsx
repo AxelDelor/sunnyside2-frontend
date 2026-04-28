@@ -73,7 +73,7 @@ const Map = ({ bars, token, setRefreshTrigger, selectedBar, favorites }) => {
         />
         {bars.map(({ id, name, latitude, longitude }) => {
           const isFavorite = favorites.find(fav => fav.bar.id === id)
-          return currentZoom >= 14 ? (
+          return currentZoom >= 17 ? (
           <Marker key={id} position={[latitude, longitude]} ref={el => markerRefs.current[id] = el}>
             <Popup>
               <Stack direction="vertical" className="text-center" gap={2}>
